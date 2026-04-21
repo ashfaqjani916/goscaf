@@ -169,11 +169,14 @@ const MakefileTemplate = `APP_NAME := {{.ProjectName}}
 BUILD_DIR := bin
 BINARY := $(BUILD_DIR)/$(APP_NAME)
 
-.PHONY: run build test test-coverage lint fmt tidy \
+.PHONY: run dev build test test-coverage lint fmt tidy \
         docker-up docker-down docker-logs clean install-tools{{if .Swagger}} swagger{{end}}
 
 run: ## Run the application
 	go run ./cmd/main.go
+
+dev: ## Start development server with hot reload (requires goscaf)
+	goscaf dev
 
 build: ## Build binary to bin/$(APP_NAME)
 	@mkdir -p $(BUILD_DIR)
